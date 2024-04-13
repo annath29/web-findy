@@ -1,3 +1,4 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from '../layout/Layout'
 import PrivateRoutes from './PrivateRoutes'
 import PublicRoutes from './PublicRoutes'
@@ -5,7 +6,8 @@ import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
 import Details from '../pages/Details/Details'
 import FormPost from '../pages/FormPost/FormPost'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Home from '../pages/Home/Home'
+import Profile from '../pages/Profile/Profile'
 
 function AppRoutes() {
  
@@ -14,15 +16,15 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Layout/>}>
         <Route element={<PrivateRoutes/>}>
-          <Route path='Details' element={<Details/>}/>
-          <Route path='FormPost' element={<FormPost/>}/>
-          <Route path='Home' element={<Home/>} />
-          <Route path='Profile' element={<Profile/>} />
+          <Route path='details' element={<Details/>}/>
+          <Route path='formPost' element={<FormPost/>}/>
+          <Route index element={<Home/>} />
+          <Route path='profile' element={<Profile/>} />
         </Route>
-        <Routes element={<PublicRoutes/>}>
+        <Route element={<PublicRoutes/>}>
           <Route path='login' element={<Login/>}/>
           <Route path='register' element={<Register/>} />
-        </Routes>
+        </Route>
       </Route>
     </Routes>
   </BrowserRouter>
