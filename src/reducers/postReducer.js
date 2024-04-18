@@ -14,10 +14,10 @@ const postReducer = (state,action) =>{
         case 'EDITPOST':
             const {id,editPost}=action.payload
             const editPosts = [...state.posts];
-            editPosts.map((post)=>  post.id == id ?  {...post,...editPost} : post)
+            const edited=editPosts.map((post)=>  post.id == id ?  {...post,...editPost} : post)
             return{
                 ...state,
-                posts:editPosts
+                posts:edited
             }    
         default:
             return state;

@@ -1,13 +1,15 @@
-import React from 'react'
-import {useAppContext} from '../context/AppContext'
-import { Navigate, Outlet } from 'react-router-dom';
+import React from "react";
+import { useAppContext } from "../context/AppContext";
+import { Navigate, Outlet } from "react-router-dom";
 
-const PrivateRoutes = (redirectPath="/login") => {
-  const {user:{user}}= useAppContext();
-  console.log("private",user.isAuth)
-  
-  if(!user.isAuth) return <Navigate to={redirectPath}/> ;
-  return<Outlet/>
-}
+const PrivateRoutes = ({ redirectPath = "/login" }) => {
+  const {
+    user: { user },
+  } = useAppContext();
+  console.log("private", user.isAuth);
 
-export default PrivateRoutes
+  if (!user.isAuth) return <Navigate to={redirectPath} />;
+  return <Outlet />;
+};
+
+export default PrivateRoutes;
