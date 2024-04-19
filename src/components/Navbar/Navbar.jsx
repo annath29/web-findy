@@ -10,6 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { useTheme } from '@mui/material/styles'
 
 
 
@@ -23,6 +24,7 @@ const StyledFab = styled(Fab)({
 });
 
 const Navbar = () => {
+  const theme = useTheme();
   return (
     <React.Fragment>
       <CssBaseline />
