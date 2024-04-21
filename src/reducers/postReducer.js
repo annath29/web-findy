@@ -1,7 +1,7 @@
 
 const postReducer = (state,action) =>{
     switch (action.type) {
-        case 'SETPOST':
+        case 'SETPOSTS':
             return{
                 ...state,
                 posts:action.payload

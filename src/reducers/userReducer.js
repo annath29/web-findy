@@ -13,11 +13,12 @@ const userReducer = (state,action) =>{
                 user:null,
                 isAuth:false,
             }
-        case 'REGISTER':
+        case 'EDITPROFILE':
+            const editProfile=action.payload
             return{
                 ...state,
-                users:[...state.users,action.payload],
-                //isAuth:false,
+                user:editProfile,
+                //isAuth:false,<
             }
         default:
             return state

@@ -42,7 +42,7 @@ const Post = ({post={name:'Jane kim'}}) => {
         avatar={
           <Avatar sx={{width:'30px', height:'30px', border: "2px solid #ff74fc"}}/>
         }
-        title={<Typography variant='h6'>{post.name}</Typography>}
+        title={<Typography variant='h6' sx={{fontWeight:'bold'}}>{post.name}</Typography>}
       />
       <CardMedia
         component="img"
@@ -73,7 +73,7 @@ const Post = ({post={name:'Jane kim'}}) => {
       </CardActions>
       <CardContent sx={{padding:'0px 8px',display:'flex',flexDirection:'row'}}>
         <Typography variant="body2">
-            <Typography mr={1} variant="h7" component="h2" display="inline">
+            <Typography mr={1} variant="h6" sx={{fontWeight:'bold'}} display="inline">
                 {post.name}
             </Typography>
           This impressive paella is a perfect party dish and a fun meal to cook

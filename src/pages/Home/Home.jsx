@@ -5,11 +5,6 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
 import logo from "../../assets/favicon.png";
@@ -18,102 +13,36 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import AddIcon from "@mui/icons-material/Add";
 import Post from "../../components/Post/Post";
+import { useAppContext } from "../../context/AppContext";
+import endpoint from "../../services/endpoint";
+import axios from "axios";
 
 const Home = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
-
-  const name = "url('../../assets/avatar.jpg')";
+  // const {profile:{profile}} = useAppContext();
+  const profile= {
+      "id": "8ac21",
+      "name": "Lisa Manoban",
+      "email": "Lisa@email.com",
+      "password": "Lisa1234",
+      "description": "Hey everyone! Let's spread love and positivity!",
+      "profile_photo": "https://i.pinimg.com/236x/af/7c/20/af7c208e31b02a4c4f3f498bb4c4fd75.jpg",
+      "cover_photo": "https://png.pngtree.com/background/20230513/original/pngtree-two-asian-girls-wearing-hats-taking-photos-picture-image_2505109.jpg",
+      "followers": 9.5,
+      "followed": ["52af"],
+      "post": ["17bf2", "39c8a"]
+    }
+  
+  console.log(profile)
+  const {posts,postDispatch} = useAppContext();
+  console.log("posts",posts)
+  const handleData = React.useCallback(async () => {
+    const { data } = await axios.get(endpoint.getAllPosts);
+    postDispatch({ type: "SETPOSTS", data });
+    console.log("response products", data);
+  }, []);
+  React.useEffect(()=>{
+    handleData();
+  },[ handleData])
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -143,8 +72,6 @@ const Home = () => {
             </Box>
           </Toolbar>
         </AppBar>
-        {renderMobileMenu}
-        {renderMenu}
       </Box>
       <Box sx={{
         backgroundImage: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 118, 116, 0.6) 0%, rgba(255, 118, 116, 0) 100%)',
