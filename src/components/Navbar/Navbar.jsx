@@ -24,7 +24,7 @@ const StyledFab = styled(Fab)({
 });
 
 const Navbar = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
   return (
     <React.Fragment>
       <CssBaseline />
@@ -33,7 +33,7 @@ const Navbar = () => {
           <IconButton color="inherit" aria-label="open drawer">
             <MenuIcon />
           </IconButton>
-          <StyledFab color="secondary" aria-label="add">
+          <StyledFab color="primary" aria-label="add">
             <AddIcon />
           </StyledFab>
           <Box sx={{ flexGrow: 1 }} />

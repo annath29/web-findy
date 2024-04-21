@@ -21,11 +21,11 @@ function AppRoutes() {
           <Route index element={<Home/>} />
           <Route path='profile' element={<Profile/>} />
         </Route>
-        <Route element={<PublicRoutes/>}>
+      </Route>
+      <Route element={<PublicRoutes/>}>
           <Route path='login' element={<Login/>}/>
           <Route path='register' element={<Register/>} />
         </Route>
-      </Route>
     </Routes>
   </BrowserRouter>
   )
