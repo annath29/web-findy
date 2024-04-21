@@ -17,7 +17,7 @@ import avatar from "../../assets/avatar.jpg";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import AddIcon from "@mui/icons-material/Add";
-import { red } from "@mui/material/colors";
+import Post from "../../components/Post/Post";
 
 const Home = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -146,43 +146,50 @@ const Home = () => {
         {renderMobileMenu}
         {renderMenu}
       </Box>
-      <Stack mt={2} ml={2} direction="row" spacing={2} overflow="hidden">
-        <Box sx={{ position: "relative" }} direction="column">
-          <Avatar alt="Remy Sharp" src={avatar} sx={{width:'64px', height:'64px', position: "relative", borderRadius: "50%", border: "2px solid #ff74fc"}} />
-          <Avatar alt="Remy Sharp" sx={{ width:'64px', height:'64px', position: "absolute", top:0, backgroundColor: "rgba(43, 43, 43, 0.3)",}}>
-            <AddIcon/>
-          </Avatar>
-          <Typography textAlign="center" fontSize={12}>Your Story</Typography>
-        </Box>
-        <Box>
-          <Avatar 
-            alt="Travis Howard"
-            src={avatar}
-            sx={{
-              width:'64px',
-              height:'64px',
-              borderRadius: "50%",
-              border: "2px solid #ff74fc",
-              //  borderImageSource: `radial-gradient(circle at 100% 100%, #ffbc74 18%, #ff74fc 39%, #ff7674 67%, #ff74b7 100%)`,
-              //  borderImageSlice: 1,
-            }}
-          ></Avatar>
-          <Typography textAlign="center" fontSize={12}>Name</Typography>
-        </Box>
-        <Box>
-          <Avatar alt="Travis Howard"  src={avatar} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
-          <Typography textAlign="center" fontSize={12}>Name</Typography>
-        </Box>
-        <Box>
-          <Avatar alt="Travis Howard"  src={avatar} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
-          <Typography textAlign="center" fontSize={12}>Name</Typography>
-        </Box>
-        <Box>
-          <Avatar alt="Travis Howard"  src={avatar} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
-          <Typography textAlign="center" fontSize={12}>Name</Typography>
-        </Box>       
-      </Stack>
-
+      <Box sx={{
+        backgroundImage: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 118, 116, 0.6) 0%, rgba(255, 118, 116, 0) 100%)',
+        backgroundRepeat: 'repeat',
+        minHeight: '100vh', 
+      }}>
+        <Stack mt={2} ml={2} direction="row" spacing={2} overflow="hidden">
+          <Box sx={{ position: "relative" }} direction="column">
+            <Avatar alt="Remy Sharp" src={avatar} sx={{width:'64px', height:'64px', position: "relative", borderRadius: "50%", border: "2px solid #ff74fc"}} />
+            <Avatar alt="Remy Sharp" sx={{ width:'64px', height:'64px', position: "absolute", top:0, backgroundColor: "rgba(43, 43, 43, 0.3)",}}>
+              <AddIcon/>
+            </Avatar>
+            <Typography textAlign="center" fontSize={12}>Your Story</Typography>
+          </Box>
+          <Box>
+            <Avatar 
+              alt="Travis Howard"
+              src={avatar}
+              sx={{
+                width:'64px',
+                height:'64px',
+                borderRadius: "50%",
+                border: "2px solid #ff74fc",
+                //  borderImageSource: `radial-gradient(circle at 100% 100%, #ffbc74 18%, #ff74fc 39%, #ff7674 67%, #ff74b7 100%)`,
+                //  borderImageSlice: 1,
+              }}
+            ></Avatar>
+            <Typography textAlign="center" fontSize={12}>Name</Typography>
+          </Box>
+          <Box>
+            <Avatar alt="Travis Howard"  src={avatar} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
+            <Typography textAlign="center" fontSize={12}>Name</Typography>
+          </Box>
+          <Box>
+            <Avatar alt="Travis Howard"  src={avatar} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
+            <Typography textAlign="center" fontSize={12}>Name</Typography>
+          </Box>
+          <Box>
+            <Avatar alt="Travis Howard"  src={avatar} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
+            <Typography textAlign="center" fontSize={12}>Name</Typography>
+          </Box>       
+        </Stack>
+        <Post/>
+        <Post/>
+      </Box>
     </>
   );
 };
