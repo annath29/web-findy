@@ -9,6 +9,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
 import logo from "../../assets/favicon.png";
 import avatar from "../../assets/avatar.jpg";
+import messageIcon from "../../assets/messageIcon.svg";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import AddIcon from "@mui/icons-material/Add";
@@ -68,8 +69,7 @@ const Home = () => {
                 color="inherit"
               >
                 <Badge badgeContent={0} color="primary">
-                  <FavoriteBorderIcon color="text" />
-                </Badge>
+                <FavoriteBorderIcon sx={{fontSize: 28,fontWeight:'bold'}} color="text" />                </Badge>
               </IconButton>
               <IconButton
                 size="large"
@@ -77,7 +77,7 @@ const Home = () => {
                 color="inherit"
               >
                 <Badge badgeContent={0} color="primary">
-                  <ForumOutlinedIcon color="text" />
+                <Box component="img" src={messageIcon}></Box>
                 </Badge>
               </IconButton>
             </Box>
@@ -119,7 +119,7 @@ const Home = () => {
               <Box key={item.id}>
                 <Avatar alt="Travis Howard"  src={item.profile_photo} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
                 <Typography textAlign="center" fontSize={12}>{item.name}</Typography>
-              </Box>: null   
+              </Box>:null   
             ))
           }
         </Stack>

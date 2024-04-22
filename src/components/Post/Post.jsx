@@ -2,7 +2,6 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
@@ -10,12 +9,11 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Box, SvgIcon } from '@mui/material';
+import { Box} from '@mui/material';
 import shareIcon from '../../assets/share.svg'
 import commentsIcon from '../../assets/comments.svg'
 import MediaCard from '../MediaCard/MediaCard';
-import { useAppContext } from '../../context/AppContext';
-import { getUser, getUsers } from '../../services/usersService';
+import { getUser} from '../../services/usersService';
 
 
 const ExpandMore = styled((props) => {
@@ -58,7 +56,7 @@ const Post = ({post={}}) => {
           <FavoriteBorderIcon color='text' sx={{width:'28px',height:'28px'}}/>
           <Typography variant='body2' color="text.dark">{post.likes.length}</Typography>
         </IconButton>
-        <IconButton aria-label="share" sx={{display:'flex', flexDirection:'column'}}>
+        <IconButton aria-label="comments" sx={{display:'flex', flexDirection:'column'}}>
           <Box component="img" src={commentsIcon} ></Box>
           <Typography variant='body2'color="text.dark" mt={0.5}>{post.comments.length}</Typography>
         </IconButton>
