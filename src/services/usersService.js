@@ -19,4 +19,16 @@ export const getUsers = async () =>{
         console.log(error);
         return []
     }
-}
+};
+
+export const getUserByEmailAndPassword = async ({ email, password }) => {
+    try {
+      const { data } = await axios.get(
+        endpoint.userByEmailAndPassword(email, password)
+      );
+      return data.length ? data[0] : null;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };

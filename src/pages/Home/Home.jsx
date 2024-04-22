@@ -19,20 +19,21 @@ import { getUsers } from "../../services/usersService";
 
 const Home = () => {
   // const {profile:{profile}} = useAppContext();
-  const user= {
-      "id": "8ac21",
-      "name": "Lisa Manoban",
-      "email": "Lisa@email.com",
-      "password": "Lisa1234",
-      "description": "Hey everyone! Let's spread love and positivity!",
-      "profile_photo": "https://i.pinimg.com/236x/af/7c/20/af7c208e31b02a4c4f3f498bb4c4fd75.jpg",
-      "cover_photo": "https://png.pngtree.com/background/20230513/original/pngtree-two-asian-girls-wearing-hats-taking-photos-picture-image_2505109.jpg",
-      "followers": 9.5,
-      "followed": ["52af"],
-      "post": ["17bf2", "39c8a"]
-    }  
+  // const user= {
+  //     "id": "8ac21",
+  //     "name": "Lisa Manoban",
+  //     "email": "Lisa@email.com",
+  //     "password": "Lisa1234",
+  //     "description": "Hey everyone! Let's spread love and positivity!",
+  //     "profile_photo": "https://i.pinimg.com/236x/af/7c/20/af7c208e31b02a4c4f3f498bb4c4fd75.jpg",
+  //     "cover_photo": "https://png.pngtree.com/background/20230513/original/pngtree-two-asian-girls-wearing-hats-taking-photos-picture-image_2505109.jpg",
+  //     "followers": 9.5,
+  //     "followed": ["52af"],
+  //     "post": ["17bf2", "39c8a"]
+  //   }  
   
-  const {posts, users} = useAppContext();
+  const {user,posts, users} = useAppContext();
+  // console.log(user.user.user)
   
   React.useEffect(()=>{
     getPosts().then ((response)=>{
@@ -91,7 +92,7 @@ const Home = () => {
       }}>
         <Stack mt={2} ml={2} direction="row" spacing={2} overflow="hidden">
           <Box sx={{ position: "relative" }} direction="column">
-            <Avatar alt="Remy Sharp" src={avatar} sx={{width:'64px', height:'64px', position: "relative", borderRadius: "50%", border: "2px solid #ff74fc"}} />
+            <Avatar alt="Remy Sharp" src={user.user.user.profile_photo} sx={{width:'64px', height:'64px', position: "relative", borderRadius: "50%", border: "2px solid #ff74fc"}} />
             <Avatar alt="Remy Sharp" sx={{ width:'64px', height:'64px', position: "absolute", top:0, backgroundColor: "rgba(43, 43, 43, 0.3)",}}>
               <AddIcon/> 
             </Avatar>
@@ -114,10 +115,11 @@ const Home = () => {
           </Box> */}
           {
             users.users.users?.map((item)=>(
-            <Box key={`history-${item}`}>
-              <Avatar alt="Travis Howard"  src={item.profile_photo} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
-              <Typography textAlign="center" fontSize={12}>{item.name}</Typography>
-            </Box>    
+              item.id != user.user.user.id ?
+              <Box key={item.id}>
+                <Avatar alt="Travis Howard"  src={item.profile_photo} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
+                <Typography textAlign="center" fontSize={12}>{item.name}</Typography>
+              </Box>: null   
             ))
           }
         </Stack>
