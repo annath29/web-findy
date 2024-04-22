@@ -14,12 +14,12 @@ import Stack from "@mui/material/Stack";
 import AddIcon from "@mui/icons-material/Add";
 import Post from "../../components/Post/Post";
 import { useAppContext } from "../../context/AppContext";
-import endpoint from "../../services/endpoint";
-import axios from "axios";
+import { getPosts } from "../../services/postServices";
+import { getUsers } from "../../services/usersService";
 
 const Home = () => {
   // const {profile:{profile}} = useAppContext();
-  const profile= {
+  const user= {
       "id": "8ac21",
       "name": "Lisa Manoban",
       "email": "Lisa@email.com",
@@ -30,19 +30,29 @@ const Home = () => {
       "followers": 9.5,
       "followed": ["52af"],
       "post": ["17bf2", "39c8a"]
-    }
+    }  
   
-  console.log(profile)
-  const {posts,postDispatch} = useAppContext();
-  console.log("posts",posts)
-  const handleData = React.useCallback(async () => {
-    const { data } = await axios.get(endpoint.getAllPosts);
-    postDispatch({ type: "SETPOSTS", data });
-    console.log("response products", data);
-  }, []);
+  const {posts, users} = useAppContext();
+  
   React.useEffect(()=>{
-    handleData();
-  },[ handleData])
+    getPosts().then ((response)=>{
+      posts.postDispatch({
+        type:'SETPOSTS',
+        payload:response,
+      })
+    }).catch((e)=>console.log(e))
+  },[])
+
+  React.useEffect(()=>{
+    getUsers().then ((response)=>{
+      // console.log(response)
+      users.usersDispatch({
+        type:'SETUSERS',
+        payload:response,
+      })
+    }).catch((e)=>console.log(e))
+  },[])
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -77,16 +87,17 @@ const Home = () => {
         backgroundImage: 'radial-gradient(50% 50% at 50% 50%, rgba(255, 118, 116, 0.6) 0%, rgba(255, 118, 116, 0) 100%)',
         backgroundRepeat: 'repeat',
         minHeight: '100vh', 
+        marginBottom:'5rem'
       }}>
         <Stack mt={2} ml={2} direction="row" spacing={2} overflow="hidden">
           <Box sx={{ position: "relative" }} direction="column">
             <Avatar alt="Remy Sharp" src={avatar} sx={{width:'64px', height:'64px', position: "relative", borderRadius: "50%", border: "2px solid #ff74fc"}} />
             <Avatar alt="Remy Sharp" sx={{ width:'64px', height:'64px', position: "absolute", top:0, backgroundColor: "rgba(43, 43, 43, 0.3)",}}>
-              <AddIcon/>
+              <AddIcon/> 
             </Avatar>
             <Typography textAlign="center" fontSize={12}>Your Story</Typography>
           </Box>
-          <Box>
+          {/* <Box>
             <Avatar 
               alt="Travis Howard"
               src={avatar}
@@ -100,22 +111,22 @@ const Home = () => {
               }}
             ></Avatar>
             <Typography textAlign="center" fontSize={12}>Name</Typography>
-          </Box>
-          <Box>
-            <Avatar alt="Travis Howard"  src={avatar} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
-            <Typography textAlign="center" fontSize={12}>Name</Typography>
-          </Box>
-          <Box>
-            <Avatar alt="Travis Howard"  src={avatar} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
-            <Typography textAlign="center" fontSize={12}>Name</Typography>
-          </Box>
-          <Box>
-            <Avatar alt="Travis Howard"  src={avatar} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
-            <Typography textAlign="center" fontSize={12}>Name</Typography>
-          </Box>       
+          </Box> */}
+          {
+            users.users.users?.map((item)=>(
+            <Box key={`history-${item}`}>
+              <Avatar alt="Travis Howard"  src={item.profile_photo} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
+              <Typography textAlign="center" fontSize={12}>{item.name}</Typography>
+            </Box>    
+            ))
+          }
         </Stack>
-        <Post/>
-        <Post/>
+        {
+          posts.posts.posts?.map((item)=>(
+            <Post key={item.id} post={item}/>
+          ))
+        }
+        
       </Box>
     </>
   );

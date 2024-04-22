@@ -1,6 +1,7 @@
 const URL_BASE=`http://localhost:3000/`;
 const endpoint={
     getUser: (idUser)=>`${URL_BASE}users/${idUser}`,
+    getAllUsers:`${URL_BASE}users`,
     getPost: (idUser)=>`${URL_BASE}posts/?id_profile=${idUser}`,
     getAllPosts: `${URL_BASE}posts`
 };
