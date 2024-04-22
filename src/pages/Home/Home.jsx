@@ -34,9 +34,7 @@ const Home = () => {
   //   }  
   
   const {user,posts, users} = useAppContext();
-  console.log(user.user.user)
-  console.log(users.users.users)
-  console.log(posts.posts.posts)
+
   
   React.useEffect(()=>{
     getPosts().then ((response)=>{
@@ -49,7 +47,6 @@ const Home = () => {
 
   React.useEffect(()=>{
     getUsers().then ((response)=>{
-      // console.log(response)
       users.usersDispatch({
         type:'SETUSERS',
         payload:response,
@@ -58,12 +55,11 @@ const Home = () => {
   },[])
 
   const usersFollowed=users.users.users?.filter(item => user.user.user.followed.includes(item.id));
-  console.log(usersFollowed)
+  // console.log(usersFollowed)
 
   const postsFollowed = posts.posts.posts.filter(post =>
     usersFollowed.some(user => user.id === post.id_profile)
   );
-  console.log("postsFollowed", postsFollowed);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>

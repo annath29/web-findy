@@ -14,7 +14,9 @@ import shareIcon from '../../assets/share.svg'
 import commentsIcon from '../../assets/comments.svg'
 import MediaCard from '../MediaCard/MediaCard';
 import { getUser} from '../../services/usersService';
-
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useAppContext } from '../../context/AppContext';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -29,34 +31,65 @@ const ExpandMore = styled((props) => {
 
 
 const Post = ({post={}}) => {  
+
+  const{user,posts}=useAppContext();
+  console.log(post)
+  console.log(posts.posts.posts)
   const [profileInfo,setProfileInfo]=React.useState();
+  const navigate = useNavigate();
+
   React.useEffect(()=>{
     getUser(post.id_profile).then ((response)=>{
       setProfileInfo(response)
     }).catch((e)=>console.log(e))
   },[]);
 
-  const [expanded, setExpanded] = React.useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleLike = (idPost,idUser) => {
+    if(post.likes.includes(idUser)){
+      const indexToDelete = post.likes.findIndex(item => item === idUser);
+      if (indexToDelete !== -1) {
+          post.likes.splice(indexToDelete, 1);
+      }
+
+    }
+    else{
+      post.likes.push(idUser)
+    }
+    posts.postDispatch({
+      type:'EDITPOSTLIKE',
+      payload:{
+        id:idPost,
+        likes: post.likes
+      },
+    })
   };
+  const handleButtonClick = (idPost) => {
+    navigate(`/details/${idPost}`)
+  }
   
 
   return (
     <Card sx={{ margin:'1rem'}}>
       <CardHeader
         avatar={
-          <Avatar src={profileInfo?.profile_photo} sx={{width:'30px', height:'30px', border: "2px solid #ff74fc"}}/>
+          <Link to={`/profile/${profileInfo?.id}`}>
+            <Avatar src={profileInfo?.profile_photo} sx={{width:'30px', height:'30px', border: "2px solid #ff74fc"}}/>
+          </Link>
         }
         title={<Typography variant='h6' sx={{fontWeight:'bold'}}>{profileInfo?.name}</Typography>}
       />
       <MediaCard post={post}></MediaCard>
       <CardActions disableSpacing sx={{alignItems:"start",padding:'8px 8px 0px 8px'}}>
-        <IconButton aria-label="add to favorites" sx={{display:'flex', flexDirection:'column'}}>
-          <FavoriteBorderIcon color='text' sx={{width:'28px',height:'28px'}}/>
+        <IconButton onClick={()=>handleLike(post.id,user.user.user.id)} aria-label="add to favorites" sx={{display:'flex', flexDirection:'column'}}>
+          {post.likes.includes(user.user.user.id) ? (
+              <FavoriteIcon color='primary' sx={{ width: '28px', height: '28px' }} />
+            ) : (
+              <FavoriteBorderIcon color='text' sx={{ width: '28px', height: '28px' }} />
+            )
+          }
           <Typography variant='body2' color="text.dark">{post.likes.length}</Typography>
         </IconButton>
-        <IconButton aria-label="comments" sx={{display:'flex', flexDirection:'column'}}>
+        <IconButton onClick={()=>handleButtonClick(post.id)} aria-label="comments" sx={{display:'flex', flexDirection:'column'}}>
           <Box component="img" src={commentsIcon} ></Box>
           <Typography variant='body2'color="text.dark" mt={0.5}>{post.comments.length}</Typography>
         </IconButton>
@@ -65,9 +98,6 @@ const Post = ({post={}}) => {
           <Typography variant='body2' color="text.dark" mt={0.5}>{post.share.length}</Typography>
         </IconButton>
         <ExpandMore
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
         >
           <BookmarkIcon sx={{width:'30px',height:'30px'}} color='primary' />
         </ExpandMore>

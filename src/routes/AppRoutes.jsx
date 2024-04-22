@@ -16,11 +16,11 @@ function AppRoutes() {
         <Route path="/" element={<Layout />}>
           <Route element={<PrivateRoutes />}>
             <Route index element={<Home />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="profile/:idProfile" element={<Profile />} />
           </Route>
         </Route>
         <Route element={<PrivateRoutes />}>
-          <Route path="details" element={<Details />} />
+          <Route path="details/:idPost" element={<Details />} />
           <Route path="formPost" element={<FormPost />} />
         </Route>
         <Route element={<PublicRoutes />}>
