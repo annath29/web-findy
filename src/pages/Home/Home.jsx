@@ -34,7 +34,9 @@ const Home = () => {
   //   }  
   
   const {user,posts, users} = useAppContext();
-  // console.log(user.user.user)
+  console.log(user.user.user)
+  console.log(users.users.users)
+  console.log(posts.posts.posts)
   
   React.useEffect(()=>{
     getPosts().then ((response)=>{
@@ -55,6 +57,13 @@ const Home = () => {
     }).catch((e)=>console.log(e))
   },[])
 
+  const usersFollowed=users.users.users?.filter(item => user.user.user.followed.includes(item.id));
+  console.log(usersFollowed)
+
+  const postsFollowed = posts.posts.posts.filter(post =>
+    usersFollowed.some(user => user.id === post.id_profile)
+  );
+  console.log("postsFollowed", postsFollowed);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -114,7 +123,7 @@ const Home = () => {
             <Typography textAlign="center" fontSize={12}>Name</Typography>
           </Box> */}
           {
-            users.users.users?.map((item)=>(
+            usersFollowed?.map((item)=>(
               item.id != user.user.user.id ?
               <Box key={item.id}>
                 <Avatar alt="Travis Howard"  src={item.profile_photo} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>
@@ -124,7 +133,7 @@ const Home = () => {
           }
         </Stack>
         {
-          posts.posts.posts?.map((item)=>(
+          postsFollowed?.map((item)=>(
             <Post key={item.id} post={item}/>
           ))
         }
