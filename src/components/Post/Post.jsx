@@ -14,7 +14,7 @@ import shareIcon from '../../assets/share.svg'
 import commentsIcon from '../../assets/comments.svg'
 import MediaCard from '../MediaCard/MediaCard';
 import { getUser} from '../../services/usersService';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 

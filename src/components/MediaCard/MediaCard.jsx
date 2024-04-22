@@ -2,12 +2,13 @@ import React from "react";
 import Carrusel from "../Carrusel/Carrusel";
 import { CardMedia } from "@mui/material";
 
-const MediaCard = ({ post = {} }) => {
+const MediaCard = ({ post = {}, height }) => {
+  console.log(post);
   if (post.category === "image") {
     return (
       <CardMedia
         component="img"
-        height="380"
+        height={height??"380"}
         image={post.content[0]}
         alt={`Post ${post.id}`}
       />

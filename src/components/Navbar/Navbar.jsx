@@ -28,7 +28,7 @@ const Navbar = () => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }}>
+      <AppBar  position="fixed" color="primary" sx={{ top: 'auto', bottom: 0,  borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' }}>
         <Toolbar>
           <IconButton color="inherit" aria-label="open drawer">
             <MenuIcon />
@@ -37,9 +37,6 @@ const Navbar = () => {
             <AddIcon />
           </StyledFab>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton color="inherit">
-            <SearchIcon />
-          </IconButton>
           <IconButton color="inherit">
             <MoreIcon />
           </IconButton>
