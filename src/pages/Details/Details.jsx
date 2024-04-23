@@ -9,6 +9,7 @@ import commentsIcon from '../../assets/comments.svg';
 import shareIcon from '../../assets/share.svg';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FormComments from '../../components/FormComments/FormComments';
 
 const Details = () => {
   const {idPost} = useParams();
@@ -56,7 +57,13 @@ const Details = () => {
   
 
   return (
-    <Box component="div">
+    <Box component="div"
+      sx={{
+        height:'100vh',
+        background: `radial-gradient(50% 50% at 50% 50%, rgba(255, 118, 116, 0.6) 0%, rgba(255, 118, 116, 0) 100%)`,
+        backgroundRepeat: 'repeat',
+      }}
+    >
       <Box sx={{ position:'relative', display:'flex',flexDirection:'column',alignItems:'center' }}>
         <Box component="div" sx={{height:'60vh',borderRadius: '10px',borderBottomLeftRadius: '10%',borderBottomRightRadius: '10%', overflow: 'hidden' }}>
           <MediaCard sx={{height:'100%'}} post={post} height="100%"/>
@@ -93,12 +100,22 @@ const Details = () => {
         />
       </Box>
   
-      <Typography mt={4} sx={{padding:'8px 0px'}} variant="body2">
+      <Typography mt={4} sx={{padding:'8px'}} variant="body2">
             <Typography mr={1} variant="h6" sx={{fontWeight:'bold'}} display="inline">
                 {profileInfo?.name}
             </Typography>
           {post?.description}
       </Typography>
+      <CardHeader sx={{ padding:'10px 16px',bottom:'-30px',width:'100vw'}}
+          avatar={
+            <Link to={`/profile/${user.user.user?.id}`}>
+              <Avatar src={user.user.user?.profile_photo} sx={{width:'50px', height:'50px', border: "2px solid #ff74fc"}}/>
+            </Link>
+          }
+          title={
+            <FormComments/>
+          }
+        />
     </Box>
   )
 }

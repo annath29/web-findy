@@ -70,12 +70,13 @@ const Login = () => {
         <InputLabel htmlFor="password">Contraseña</InputLabel>
         <Input
           id="password"
+          type='password'
           aria-describedby="password-text"
           {...formik.getFieldProps("password")}
         />
         {formik.touched.password && formik.errors.password?<FormHelperText id="password-text">{formik.errors.password}</FormHelperText>:null}
       </FormControl>
-      <Button variant="contained" disableElevation type='submit'>
+      <Button variant="contained"  disableElevation type='submit'>
         Iniciar sesión
       </Button>
     </Box>
