@@ -18,10 +18,22 @@ const postReducer = (state,action) =>{
             return{
                 ...state,
                 posts:edited
-            }    
-        default:
-            return state;
-    }
+            }  
+        // case "FILLCATEGORIES":
+        //     return {
+        //         ...state,
+        //         categories: action.payload
+        //     }  
+
+        // case "FILTERPOSTS":
+        //     return {
+        //     ...state,
+        //     posts: action.payload.posts,
+        //     isActiveFilter: action.payload.isActiveFilter,
+        //     };
+        // default:
+        //     return state;
+        }
 }
 
 export default postReducer

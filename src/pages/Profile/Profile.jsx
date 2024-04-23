@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import { getPosts } from '../../services/postServices';
 import { getUser } from "../../services/userServices";
 import { getPosts } from "../../services/postServices";
 import { getPostsByCategory } from "../../services/postServices";
-import { useAppContext } from "../../context/AppContext";
 import {
   ImageList,
   ImageListItem,
@@ -16,8 +14,8 @@ import {
   Avatar,
   Select,
   MenuItem,
+  Stack,
 } from "@mui/material";
-import { CenterFocusStrong } from "@mui/icons-material";
 
 const Profile = ({ userId = "52af" }) => {
   const [userData, setUserData] = useState(null);
@@ -74,6 +72,7 @@ const Profile = ({ userId = "52af" }) => {
       console.error("Error fetching filtered posts:", error);
     }
   };
+  
 
   return (
     <div>
@@ -89,23 +88,58 @@ const Profile = ({ userId = "52af" }) => {
             image={userData.cover_photo}
           />
           <CardContent sx={{ position: "relative", textAlign: "center" }}>
-            <Avatar
-              alt="Me"
-              src={userData.profile_photo}
-              sx={{
-                width: '18vw',
-                height: '18vw',
-                border: "2px solid",
-                borderColor: "primary.main",
-                borderRadius: '50%',
-                position: "absolute",
-                top: "-10vw",
-                left: "50%",
-                transform: "translateX(-50%)",
-                zIndex: 1,
-              }}
-            />
-            <Typography gutterBottom variant="h5" component="div">
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{ width: "100%", justifyContent: "space-between" }}
+            >
+              <Stack
+                direction="column"
+                alignItems="center"
+                sx={{ pl: "8vw", pt: "0.1vw" }}
+              >
+                <Typography variant="body1" color="text.secondary">
+                  {userData.followers}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Followers
+                </Typography>
+              </Stack>
+              <Avatar
+                alt="Me"
+                src={userData.profile_photo}
+                sx={{
+                  width: "18vw",
+                  height: "18vw",
+                  border: "2px solid",
+                  borderColor: "primary.main",
+                  borderRadius: "50%",
+                  position: "absolute",
+                  top: "-10vw",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  zIndex: 1,
+                }}
+              />
+              <Stack
+                direction="column"
+                alignItems="center"
+                sx={{ pr: "8vw", pt: "0.1vw" }}
+              >
+                <Typography variant="body1" color="text.secondary">
+                  12
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Likes
+                </Typography>
+              </Stack>
+            </Stack>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              sx={{ marginTop: "1vw", marginBottom: "4vw" }}
+            >
               {userData.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -113,51 +147,84 @@ const Profile = ({ userId = "52af" }) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">Follow</Button>
-            <Button size="small">Message</Button>
+            <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
+              <Button variant="contained" size="small" sx={{ width: "50%" }}>
+                Follow
+              </Button>
+              <Button variant="contained" size="small" sx={{ width: "50%" }}>
+                Message
+              </Button>
+            </Stack>
           </CardActions>
         </Card>
       )}
 
-      <div>
-        <h2>Filtrar Publicaciones</h2>
-        <Select
-          value={filterType}
-          onChange={(e) => setFilterType(e.target.value)}
-        >
-          <MenuItem value="all">Todos</MenuItem>
-          <MenuItem value="image">Imágenes</MenuItem>
-          <MenuItem value="video">Videos</MenuItem>
-          <MenuItem value="album">Álbumes</MenuItem>
-        </Select>
-        <Select
-          value={filterTag}
-          onChange={(e) => setFilterTag(e.target.value)}
-        >
-          <MenuItem value="all">Todas las etiquetas</MenuItem>
-          <MenuItem value={userId}>Mis Publicaciones</MenuItem>
-        </Select>
-        <Button onClick={handleFilterChange}>Aplicar filtro</Button>
-      </div>
-
       {userPosts.length > 0 && (
         <div>
-          <ImageList
-            sx={{ width: 500, height: 450 }}
-            variant="woven"
-            cols={3}
-            gap={8}
-          >
+          <div>
+            <Stack direction="row" spacing={2} justifyContent="center">
+              <Button
+                onClick={() => setFilterType("photo")}
+                sx={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  color:
+                    filterType === "photo"
+                      ? "primary.contrastText"
+                      : "text.primary",
+                }}
+              >
+                Photo
+              </Button>
+              <Button
+                onClick={() => setFilterType("video")}
+                sx={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  color:
+                    filterType === "video"
+                      ? "primary.contrastText"
+                      : "text.primary",
+                }}
+              >
+                Video
+              </Button>
+              <Button
+                onClick={() => setFilterType("album")}
+                sx={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  color:
+                    filterType === "album"
+                      ? "primary.contrastText"
+                      : "text.primary",
+                }}
+              >
+                Album
+              </Button>
+              <Button
+                onClick={() => setFilterTag(userId)}
+                sx={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  color:
+                    filterTag === userId
+                      ? "primary.contrastText"
+                      : "text.primary",
+                }}
+              >
+                Tag
+              </Button>
+            </Stack>
+          </div>
+          <div>
             {userPosts.map((post) => (
-              <ImageListItem key={post.id}>
-                <img
-                  src={post.content[0]}
-                  alt={post.description}
-                  loading="lazy"
-                />
-              </ImageListItem>
+              <div key={post.id}>
+                <img src={post.image} alt={post.description} />
+                <p>{post.description}</p>
+              </div>
             ))}
-          </ImageList>
+          </div>
         </div>
       )}
     </div>
