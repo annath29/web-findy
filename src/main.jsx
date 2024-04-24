@@ -4,17 +4,25 @@ import {AppContextProvider} from './context/AppContext'
 import AppRoutes from './routes/AppRoutes'
 import { ThemeProvider } from '@emotion/react'
 import { createTheme } from '@mui/material/styles'
-import { red } from '@mui/material/colors'
+
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: red[500],
+      main: '#ff7674',
     },
     secondary: {
-      main: '#f44336',
+      main: '#ffff' ,
     },
+    text:{
+      main:'#2F2F2F',
+      dark:'#000000'
+    }
   },
+  typography:{
+    fontFamily:['Balsamiq Sans, sans-serif',]
+  }
+
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -6,7 +6,7 @@ const PublicRoutes = ({ redirectPath = "/" }) => {
   const {
     user: { user },
   } = useAppContext();
-  console.log("public", user);
+  // console.log("public", user);
   if (user.isAuth) return <Navigate to={redirectPath} />;
   return <Outlet />;
 };

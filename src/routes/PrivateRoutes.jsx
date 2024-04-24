@@ -6,7 +6,7 @@ const PrivateRoutes = ({ redirectPath = "/login" }) => {
   const {
     user: { user },
   } = useAppContext();
-  console.log("private", user.isAuth);
+  // console.log("private", user.isAuth);
 
   if (!user.isAuth) return <Navigate to={redirectPath} />;
   return <Outlet />;

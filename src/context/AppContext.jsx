@@ -1,8 +1,8 @@
 import { createContext, useContext, useReducer } from 'react';
 import userReducer from '../reducers/userReducer'
 import postReducer from '../reducers/postReducer'
-import profileReducer from '../reducers/profileReducer'
 import commentsReducer from '../reducers/commentsReducer'
+import usersReducer from '../reducers/usersReducer';
 
 const AppContext = createContext(null)
 
@@ -11,6 +11,9 @@ export const AppContextProvider = ({children}) =>{
         user:null,
         isAuth:false,
     }
+    const initialUsers={
+        users:[]
+    }
     const initialPost = {
         posts:[]
     }
@@ -18,12 +21,14 @@ export const AppContextProvider = ({children}) =>{
         comments:[]
     }
     const [user,userDispatch] = useReducer(userReducer,initialUser)
-    const [post,postDispatch] = useReducer(postReducer,initialPost)
+    const [users,usersDispatch] = useReducer(usersReducer,initialUsers)
+    const [posts,postsDispatch] = useReducer(postReducer,initialPost)
     const [comments,commentsDispatch] = useReducer(commentsReducer,initialComments)
 
     const globalState={
         user:{user,userDispatch},
-        post:{post,postDispatch},
+        users:{users,usersDispatch},
+        posts:{posts,postsDispatch},
         comments:{comments,commentsDispatch},
     }
     return <AppContext.Provider value={{...globalState}}>{children}</AppContext.Provider>

@@ -1,7 +1,7 @@
 
 const postReducer = (state,action) =>{
     switch (action.type) {
-        case 'SETPOST':
+        case 'SETPOSTS':
             return{
                 ...state,
                 posts:action.payload
@@ -11,10 +11,18 @@ const postReducer = (state,action) =>{
                 ...state,
                 posts:[...state.posts,action.payload]
             }    
+        case 'EDITPOSTLIKE':
+            const {id,likes}=action.payload
+            const editPostsLikes = [...state.posts];
+            const editedLikes=editPostsLikes.map((post)=>  post.id == id ?  {...post,likes} : post)
+            return{
+                ...state,
+                posts:editedLikes
+            }    
         case 'EDITPOST':
-            const {id,editPost}=action.payload
+            const {idPost,updatePost}=action.payload
             const editPosts = [...state.posts];
-            const edited=editPosts.map((post)=>  post.id == id ?  {...post,...editPost} : post)
+            const edited=editPosts.map((post)=>  post.id == idPost ?  {...post,...updatePost} : post)
             return{
                 ...state,
                 posts:edited
