@@ -33,8 +33,7 @@ const ExpandMore = styled((props) => {
 const Post = ({post={}}) => {  
 
   const{user,posts}=useAppContext();
-  console.log(post)
-  console.log(posts.posts.posts)
+  
   const [profileInfo,setProfileInfo]=React.useState();
   const navigate = useNavigate();
 

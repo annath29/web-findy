@@ -22,13 +22,13 @@ export const AppContextProvider = ({children}) =>{
     }
     const [user,userDispatch] = useReducer(userReducer,initialUser)
     const [users,usersDispatch] = useReducer(usersReducer,initialUsers)
-    const [posts,postDispatch] = useReducer(postReducer,initialPost)
+    const [posts,postsDispatch] = useReducer(postReducer,initialPost)
     const [comments,commentsDispatch] = useReducer(commentsReducer,initialComments)
 
     const globalState={
         user:{user,userDispatch},
         users:{users,usersDispatch},
-        posts:{posts,postDispatch},
+        posts:{posts,postsDispatch},
         comments:{comments,commentsDispatch},
     }
     return <AppContext.Provider value={{...globalState}}>{children}</AppContext.Provider>

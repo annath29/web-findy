@@ -20,9 +20,9 @@ const postReducer = (state,action) =>{
                 posts:editedLikes
             }    
         case 'EDITPOST':
-            const {idPost,editPost}=action.payload
+            const {idPost,updatePost}=action.payload
             const editPosts = [...state.posts];
-            const edited=editPosts.map((post)=>  post.id == idPost ?  {...post,...editPost} : post)
+            const edited=editPosts.map((post)=>  post.id == idPost ?  {...post,...updatePost} : post)
             return{
                 ...state,
                 posts:edited

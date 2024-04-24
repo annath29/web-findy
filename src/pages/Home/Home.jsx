@@ -38,7 +38,7 @@ const Home = () => {
   
   React.useEffect(()=>{
     getPosts().then ((response)=>{
-      posts.postDispatch({
+      posts.postsDispatch({
         type:'SETPOSTS',
         payload:response,
       })

@@ -49,8 +49,6 @@ const Login = () => {
         justifyContent:'center',
         alignItems:'center',
         height:'100vh',
-  
-  
       }}
       noValidate
       autoComplete="off"

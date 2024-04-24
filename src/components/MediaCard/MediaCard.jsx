@@ -3,7 +3,6 @@ import Carrusel from "../Carrusel/Carrusel";
 import { CardMedia } from "@mui/material";
 
 const MediaCard = ({ post = {}, height }) => {
-  console.log(post);
   if (post.category === "image") {
     return (
       <CardMedia
