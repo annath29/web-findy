@@ -12,7 +12,8 @@ export const AppContextProvider = ({children}) =>{
         isAuth:false,
     }
     const initialUsers={
-        users:[]
+        users:[],
+        friends:[]
     }
     const initialPost = {
         posts:[]

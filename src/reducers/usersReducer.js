@@ -10,6 +10,11 @@ const usersReducer = (state,action) =>{
                 ...state,
                 users:action.payload
             }
+            case 'FILLFRIENDS':
+                return{
+                    ...state,
+                    friends:action.payload
+                }
     }
 }
 

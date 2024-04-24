@@ -17,22 +17,9 @@ import { getPosts } from "../../services/postServices";
 import { getUsers } from "../../services/usersService";
 
 const Home = () => {
-  // const {profile:{profile}} = useAppContext();
-  // const user= {
-  //     "id": "8ac21",
-  //     "name": "Lisa Manoban",
-  //     "email": "Lisa@email.com",
-  //     "password": "Lisa1234",
-  //     "description": "Hey everyone! Let's spread love and positivity!",
-  //     "profile_photo": "https://i.pinimg.com/236x/af/7c/20/af7c208e31b02a4c4f3f498bb4c4fd75.jpg",
-  //     "cover_photo": "https://png.pngtree.com/background/20230513/original/pngtree-two-asian-girls-wearing-hats-taking-photos-picture-image_2505109.jpg",
-  //     "followers": 9.5,
-  //     "followed": ["52af"],
-  //     "post": ["17bf2", "39c8a"]
-  //   }  
-  
-  const {user,posts, users} = useAppContext();
 
+  const {user,posts, users} = useAppContext();
+  console.log(users.usersDispatch)
   
   React.useEffect(()=>{
     getPosts().then ((response)=>{
@@ -49,14 +36,19 @@ const Home = () => {
         type:'SETUSERS',
         payload:response,
       })
+      
+      const usersFollowed=response?.filter(item => user.user.user.followed.includes(item.id));
+      users.usersDispatch(
+        {
+          type:'FILLFRIENDS',
+          payload:usersFollowed,
+        }
+      )
     }).catch((e)=>console.log(e))
   },[])
 
-  const usersFollowed=users.users.users?.filter(item => user.user.user.followed.includes(item.id));
-  // console.log(usersFollowed)
-
   const postsFollowed = posts.posts.posts.filter(post =>
-    usersFollowed.some(user => user.id === post.id_profile)
+    users.users.friends?.some(user => user.id === post.id_profile)
   );
   return (
     <>
@@ -117,7 +109,7 @@ const Home = () => {
             <Typography textAlign="center" fontSize={12}>Name</Typography>
           </Box> */}
           {
-            usersFollowed?.map((item)=>(
+            users.users.friends?.map((item)=>(
               item.id != user.user.user.id ?
               <Box key={item.id}>
                 <Avatar alt="Travis Howard"  src={item.profile_photo} sx={{ width:'64px', height:'64px', borderRadius: "50%", border: "2px solid #ff74fc"}}/>

@@ -93,8 +93,8 @@ const Navbar = () => {
             }}
           >
             <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Text in a modal
+              <Typography id="modal-modal-title"color='primary' variant="h5" sx={{textAlign:'center',marginBottom:'2rem'}}>
+                Nueva Publicación
               </Typography>
               <FormPost></FormPost>
             </Box>
