@@ -15,7 +15,9 @@ export const AppContextProvider = ({children}) =>{
         users:[]
     }
     const initialPost = {
-        posts:[]
+        posts:[],
+        categories:[],
+        isActiveFilter: false
     }
     const initialComments = {
         comments:[]

@@ -20,7 +20,6 @@ export const getPost = async (idPost) => {
   }
 };
 
-
 export const createPost = async (postData) => {
   try {
     const response = await axios.post(endpoint.getAllPosts, postData);
@@ -28,5 +27,25 @@ export const createPost = async (postData) => {
   } catch (error) {
     console.error("Error al enviar el post:", error);
     return null;
+  }
+};
+
+export const getPostsByCategory = async (category) => {
+  try {
+    const { data } = await axios.get(endpoint.postsByCategory(category));
+    return data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getPostsByUser= async (idUser) => {
+  try {
+    const { data } = await axios.get(endpoint.getPostByIdUser(idUser));
+    return data;
+  } catch (error) {
+    console.error(error);
+    return [];
   }
 };
