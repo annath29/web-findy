@@ -31,51 +31,56 @@ const FilterButtons = ({ categories = [] }) => {
   };
 
   return (
-    //   {categories.map((item, index) => (
-    //     <Button
-    //       key={index}
-    //       variant="contained"
-    //       color="secondary"
-    //       onClick={() => handleFilter(item)}
-    //     >
-    //       {item}
-    //     </Button>
-    //   ))}
-
     <Stack direction="row" spacing={2} justifyContent="center">
-    <Button
-      onClick={() => handleFilter("photo")}
+      {/* {categories.map((item, index) => (
+        <Button
+          key={index}
+          variant="contained"
+          color="secondary"
+          onClick={() => handleFilter(item)}
+        >
+          {item}
+        </Button>
+      ))} */}
+      <Button
+        onClick={() => handleFilter("image")}
+        sx={{
+          border: "none",
+          backgroundColor: "transparent",
+          color: 'black',
+        }}
+      >
+        Photo
+      </Button>
+      <Button
+        onClick={() => handleFilter("video")}
+        sx={{
+          border: "none",
+          backgroundColor: "transparent",
+          color: 'black',
+        }}
+      >
+        Video
+      </Button>
+      <Button
+        onClick={() => handleFilter("tag")}
+        sx={{
+          border: "none",
+          backgroundColor: "transparent",
+          color: 'black',
+        }}
+      >
+        Album
+      </Button>
+      <Button
       sx={{
         border: "none",
         backgroundColor: "transparent",
-      }}
-    >
-      Photo
-    </Button>
-    <Button
-      onClick={() => handleFilter("video")}
-      sx={{
-        border: "none",
-        backgroundColor: "transparent",
-      }}
-    >
-      Video
-    </Button>
-    <Button
-      onClick={() => handleFilter("album")}
-      sx={{
-        border: "none",
-        backgroundColor: "transparent",
-      }}
-    >
-      Album
-    </Button>
-    <Button>
+        color: 'black',
+      }}>
         Tag
-    </Button>
-  </Stack>
-
-    
+      </Button>
+    </Stack>
   );
 };
 

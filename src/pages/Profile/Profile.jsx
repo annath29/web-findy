@@ -18,6 +18,9 @@ import {
 } from "@mui/material";
 import FilterButtons from "../../components/Profile/FilterButtons";
 import { useAppContext } from "../../context/AppContext";
+import { red, orange } from "@mui/material/colors";
+
+const color = red[100];
 
 const Profile = ({ userId = "52af" }) => {
   const [userData, setUserData] = useState(null);
@@ -37,32 +40,31 @@ const Profile = ({ userId = "52af" }) => {
   //   }
   // }, [userId]);
 
-    const fetchUserData = async () => {
-      try {
-        const data = await getUser(userId);
-        setUserData(data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    const getCategories = (post) => {
-      const allCategories = post.map(item => item.category);
-      const categories = new Set(allCategories);
-      return [...categories];
+  const fetchUserData = async () => {
+    try {
+      const data = await getUser(userId);
+      setUserData(data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
     }
+  };
 
-    const fetchUserPosts = useCallback(() => {
-      getPosts()
-        .then((response) => {
-          const userPosts = response.filter((post) => post.id_profile === userId);
-          setUserPosts(userPosts);
-        })
-        .catch((error) => {
-          console.error("Error fetching user posts:", error);
-        });
-    }, []);
-    
+  const getCategories = (post) => {
+    const allCategories = post.map((item) => item.category);
+    const categories = new Set(allCategories);
+    return [...categories];
+  };
+
+  const fetchUserPosts = useCallback(() => {
+    getPosts()
+      .then((response) => {
+        const userPosts = response.filter((post) => post.id_profile === userId);
+        setUserPosts(userPosts);
+      })
+      .catch((error) => {
+        console.error("Error fetching user posts:", error);
+      });
+  }, []);
 
   useEffect(() => {
     fetchUserData();
@@ -73,26 +75,31 @@ const Profile = ({ userId = "52af" }) => {
     <div>
       {userData && (
         <Card
-          width="428"
-          height="227"
-          sx={{ borderTopLeftRadius: 35, borderTopRightRadius: 35 }}
+          sx={{
+            borderTopLeftRadius: 35,
+            borderTopRightRadius: 35,
+            overflow: "hidden",
+            background:`linear-gradient(45deg, ${red[100]} 10%, white, ${orange[100]} 90%)`
+          }}
         >
           <CardMedia
             component="img"
             alt={userData.name}
             image={userData.cover_photo}
           />
-          <CardContent sx={{ position: "relative", textAlign: "center" }}>
+          <CardContent
+            sx={{
+              position: "relative",
+              textAlign: "center",
+              background: `linear-gradient(45deg, ${red[100]} 10%, white, ${orange[100]} 90%)`,
+            }}
+          >
             <Stack
               direction="row"
               spacing={2}
-              sx={{ width: "100%", justifyContent: "space-between" }}
-            >
-              <Stack
-                direction="column"
-                alignItems="center"
-                sx={{ pl: "8vw", pt: "0.1vw" }}
+              sx={{ width: "100%", justifyContent: "space-between"}}
               >
+              <Stack direction="column" alignItems="center">
                 <Typography variant="body1" color="text.secondary">
                   {userData.followers}
                 </Typography>
@@ -104,23 +111,19 @@ const Profile = ({ userId = "52af" }) => {
                 alt="Me"
                 src={userData.profile_photo}
                 sx={{
-                  width: "18vw",
-                  height: "18vw",
+                  width: 80,
+                  height: 80,
                   border: "2px solid",
                   borderColor: "primary.main",
                   borderRadius: "50%",
                   position: "absolute",
-                  top: "-10vw",
+                  top: "-40px",
                   left: "50%",
                   transform: "translateX(-50%)",
                   zIndex: 1,
                 }}
               />
-              <Stack
-                direction="column"
-                alignItems="center"
-                sx={{ pr: "8vw", pt: "0.1vw" }}
-              >
+              <Stack direction="column" alignItems="center">
                 <Typography variant="body1" color="text.secondary">
                   12
                 </Typography>
@@ -141,7 +144,9 @@ const Profile = ({ userId = "52af" }) => {
               {userData.description}
             </Typography>
           </CardContent>
-          <CardActions>
+          <CardActions sx={{
+            paddingBottom: 8
+            }}>
             <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
               <Button variant="contained" size="small" sx={{ width: "50%" }}>
                 Follow
@@ -153,18 +158,38 @@ const Profile = ({ userId = "52af" }) => {
           </CardActions>
         </Card>
       )}
+      <Card
+        width={428}
+        height={227}
+        sx={{
+          borderTopLeftRadius: 35,
+          borderTopRightRadius: 35,
+          overflow: "hidden",
+          mt: -5
+        }}
+      >
+        <FilterButtons />
 
-        <FilterButtons/>
-
-          <div>
+        <div style={{ margin: '0 auto', maxWidth: '95%' }}>
+          <ImageList
+            sx={{ width: "100%", height: 450 }}
+            variant="woven"
+            cols={3}
+            gap={8}
+          >
             {userPosts.map((post) => (
-              <div key={post.id}>
-                <img src={post.image} alt={post.description} />
-                <p>{post.description}</p>
-              </div>
+              <ImageListItem key={post.id}>
+                <img
+                  src={`${post.content}?w=161&fit=crop&auto=format`}
+                  alt={post.description}
+                  loading="lazy"
+                  style={{borderRadius: '20px'}}
+                />
+              </ImageListItem>
             ))}
-          </div>
-
+          </ImageList>
+        </div>
+      </Card>
     </div>
   );
 };
