@@ -1,11 +1,9 @@
 import { Avatar, Box, CardHeader, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getCommentsByPostIdSort } from "../../services/commentServices";
 import { getUser } from "../../services/usersService";
 
 const Comment = ({ comment }) => {
-  console.log("object", comment);
   const [commentProfile, setCommentProfile] = useState();
   useEffect(() => {
     getUser(comment.id_user)

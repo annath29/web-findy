@@ -41,7 +41,6 @@ const Details = () => {
   useEffect(() => {
     getCommentsByPostIdSort(idPost)
       .then((response) => {
-        console.log("object",response)
         setSortComments(response);
       })
       .catch((e) => console.error(e));
