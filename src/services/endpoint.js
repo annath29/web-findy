@@ -4,6 +4,7 @@ const endpoint={
     userByEmailAndPassword:(email,password) =>`${URL_BASE}users?email=${email}&password=${password}`,
     getAllUsers:`${URL_BASE}users`,
     getPost: (idUser)=>`${URL_BASE}posts/?id_profile=${idUser}`,
-    getAllPosts: `${URL_BASE}posts`
+    getAllPosts: `${URL_BASE}posts`,
+    postsByCategory: (category) => `${URL_BASE}posts?category=${category}`,
 };
 export default endpoint;

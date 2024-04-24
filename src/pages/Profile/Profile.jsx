@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { getUser } from "../../services/userServices";
 import { getPosts } from "../../services/postServices";
-import { getPostsByCategory } from "../../services/postServices";
+// import { getPostsByCategory } from "../../services/postServices";
 import {
   ImageList,
   ImageListItem,
@@ -16,12 +16,15 @@ import {
   MenuItem,
   Stack,
 } from "@mui/material";
+import FilterButtons from "../../components/Profile/FilterButtons";
+import { useAppContext } from "../../context/AppContext";
 
 const Profile = ({ userId = "52af" }) => {
   const [userData, setUserData] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [filterType, setFilterType] = useState("all");
   const [filterTag, setFilterTag] = useState("all");
+  const { post } = useAppContext();
 
   // useEffect(() => {
   //   const fetchUserData = async () => {
@@ -33,7 +36,7 @@ const Profile = ({ userId = "52af" }) => {
   //     fetchUserData();
   //   }
   // }, [userId]);
-  useEffect(() => {
+
     const fetchUserData = async () => {
       try {
         const data = await getUser(userId);
@@ -43,36 +46,28 @@ const Profile = ({ userId = "52af" }) => {
       }
     };
 
-    const fetchUserPosts = async () => {
-      try {
-        const posts = await getPosts();
-        const userPosts = posts.filter((post) => post.id_profile === userId);
-        setUserPosts(userPosts);
-      } catch (error) {
-        console.error("Error fetching user posts:", error);
-      }
-    };
+    const getCategories = (post) => {
+      const allCategories = post.map(item => item.category);
+      const categories = new Set(allCategories);
+      return [...categories];
+    }
 
+    const fetchUserPosts = useCallback(() => {
+      getPosts()
+        .then((response) => {
+          const userPosts = response.filter((post) => post.id_profile === userId);
+          setUserPosts(userPosts);
+        })
+        .catch((error) => {
+          console.error("Error fetching user posts:", error);
+        });
+    }, []);
+    
+
+  useEffect(() => {
     fetchUserData();
     fetchUserPosts();
   }, [userId]);
-
-  const handleFilterChange = async () => {
-    try {
-      const posts = await getPostsByCategory(filterType);
-      setUserPosts(
-        posts.filter((post) => {
-          if (filterType !== "all" && post.category !== filterType)
-            return false;
-          if (filterTag !== "all" && !post.tags.includes(userId)) return false;
-          return true;
-        })
-      );
-    } catch (error) {
-      console.error("Error fetching filtered posts:", error);
-    }
-  };
-  
 
   return (
     <div>
@@ -159,64 +154,8 @@ const Profile = ({ userId = "52af" }) => {
         </Card>
       )}
 
-      {userPosts.length > 0 && (
-        <div>
-          <div>
-            <Stack direction="row" spacing={2} justifyContent="center">
-              <Button
-                onClick={() => setFilterType("photo")}
-                sx={{
-                  border: "none",
-                  backgroundColor: "transparent",
-                  color:
-                    filterType === "photo"
-                      ? "primary.contrastText"
-                      : "text.primary",
-                }}
-              >
-                Photo
-              </Button>
-              <Button
-                onClick={() => setFilterType("video")}
-                sx={{
-                  border: "none",
-                  backgroundColor: "transparent",
-                  color:
-                    filterType === "video"
-                      ? "primary.contrastText"
-                      : "text.primary",
-                }}
-              >
-                Video
-              </Button>
-              <Button
-                onClick={() => setFilterType("album")}
-                sx={{
-                  border: "none",
-                  backgroundColor: "transparent",
-                  color:
-                    filterType === "album"
-                      ? "primary.contrastText"
-                      : "text.primary",
-                }}
-              >
-                Album
-              </Button>
-              <Button
-                onClick={() => setFilterTag(userId)}
-                sx={{
-                  border: "none",
-                  backgroundColor: "transparent",
-                  color:
-                    filterTag === userId
-                      ? "primary.contrastText"
-                      : "text.primary",
-                }}
-              >
-                Tag
-              </Button>
-            </Stack>
-          </div>
+        <FilterButtons/>
+
           <div>
             {userPosts.map((post) => (
               <div key={post.id}>
@@ -225,8 +164,7 @@ const Profile = ({ userId = "52af" }) => {
               </div>
             ))}
           </div>
-        </div>
-      )}
+
     </div>
   );
 };

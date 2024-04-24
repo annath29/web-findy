@@ -11,7 +11,9 @@ export const AppContextProvider = ({children}) =>{
         isAuth:true,
     }
     const initialPost = {
-        posts:[]
+        posts:[],
+        categories:[],
+        isActiveFilter: false
     }
     const initialComments = {
         comments:[]
