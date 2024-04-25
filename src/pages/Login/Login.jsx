@@ -4,7 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
-import { Button } from '@mui/material';
+import Button from "@mui/material/Button";
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { getUserByEmailAndPassword } from '../../services/usersService';

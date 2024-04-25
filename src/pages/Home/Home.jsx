@@ -19,7 +19,6 @@ import { getUsers } from "../../services/usersService";
 const Home = () => {
 
   const {user,posts, users} = useAppContext();
-  console.log(users.usersDispatch)
   
   React.useEffect(()=>{
     getPosts().then ((response)=>{
@@ -46,10 +45,11 @@ const Home = () => {
       )
     }).catch((e)=>console.log(e))
   },[])
-
+  
+  const usersPosts= [...users.users.friends,user.user.user]
   const postsFollowed = posts.posts.posts.filter(post =>
-    users.users.friends?.some(user => user.id === post.id_profile)
-  );
+    usersPosts?.some(user => user.id === post.id_profile)
+  ).reverse();
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>

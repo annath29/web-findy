@@ -96,7 +96,7 @@ const Navbar = () => {
               <Typography id="modal-modal-title"color='primary' variant="h5" sx={{textAlign:'center',marginBottom:'2rem'}}>
                 Nueva Publicación
               </Typography>
-              <FormPost></FormPost>
+              <FormPost handleClose={handleClose}></FormPost>
             </Box>
           </Modal>
           <Box sx={{ flexGrow: 1 }} />
