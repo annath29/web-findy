@@ -1,4 +1,5 @@
-const URL_BASE=`http://localhost:3000/`;
+// const URL_BASE=`http://localhost:3000/`;
+const URL_BASE=`https://minibackend-webfindy.onrender.com/`;
 const endpoint={
     getUser: (idUser)=>`${URL_BASE}users/${idUser}`,
     userByEmailAndPassword:(email,password) =>`${URL_BASE}users?email=${email}&password=${password}`,
