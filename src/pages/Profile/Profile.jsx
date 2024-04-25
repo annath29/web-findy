@@ -171,6 +171,7 @@ const Profile = () => {
               </ImageListItem>
             ))}
           </ImageList>
+          <Typography>Hola</Typography>
         </div>
       </Card>
     </div>
