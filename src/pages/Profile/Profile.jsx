@@ -112,6 +112,7 @@ const Profile = () => {
                 </Typography>
               </Stack>
             </Stack>
+            <Typography>Hola</Typography>
             <Typography
               gutterBottom
               variant="h5"
@@ -171,7 +172,6 @@ const Profile = () => {
               </ImageListItem>
             ))}
           </ImageList>
-          <Typography>Hola</Typography>
         </div>
       </Card>
     </div>
