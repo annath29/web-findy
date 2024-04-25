@@ -40,8 +40,12 @@ const FilterButtons = () => {
       {
       posts.posts.categories?.map((item, index) => ( 
         <Button
+        sx={{
+          border: "none",
+          backgroundColor: "transparent",
+          color: 'black',
+        }}
           key={index}
-          variant="contained"
           color="secondary"
           onClick={posts.posts.categories?.length >0 ?() => handleFilter(item): () => handleFilter("all")}
         >
@@ -52,16 +56,6 @@ const FilterButtons = () => {
     }
       
       {/* <Button
-        onClick={() => handleFilter("image")}
-        sx={{
-          border: "none",
-          backgroundColor: "transparent",
-          color: 'black',
-        }}
-      >
-        Photo
-      </Button>
-      <Button
         onClick={() => handleFilter("video")}
         sx={{
           border: "none",

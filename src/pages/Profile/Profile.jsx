@@ -1,6 +1,5 @@
 import React, { useEffect,useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-import { getPosts } from "../../services/postServices";
 import {
   ImageList,
   ImageListItem,
@@ -19,8 +18,13 @@ import { getPostsByUser } from "../../services/postServices";
 
 const Profile = () => {
   const { user,posts } = useAppContext();
+  const [followers, setFollowers] = useState(10);
   // console.log("posts", posts);
   // console.log("posts.cartegory", posts.posts.categories);
+
+  const handleFollow = () => {
+    setFollowers(prevFollowers => prevFollowers + 1);
+  };
 
   const getCategories = (allPosts) => {
     const allCategories = allPosts.map((item) => item.category);
@@ -77,7 +81,7 @@ const Profile = () => {
             >
               <Stack direction="column" alignItems="center">
                 <Typography variant="body1" color="text.secondary">
-                  {user.user.user.followers}
+                  {followers}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Followers
@@ -126,7 +130,7 @@ const Profile = () => {
             }}
           >
             <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
-              <Button variant="contained" size="small" sx={{ width: "50%" }}>
+              <Button variant="contained" size="small" sx={{ width: "50%" }} onClick={handleFollow}>
                 Follow
               </Button>
               <Button variant="contained" size="small" sx={{ width: "50%" }}>
@@ -148,6 +152,7 @@ const Profile = () => {
       >
         
         <FilterButtons/>
+
         <div style={{ margin: "0 auto", maxWidth: "95%" }}>
           <ImageList
             sx={{ width: "100%", height: 450 }}
